@@ -7,6 +7,7 @@ const {
   writeFileSync,
   readFile,
   writeFile,
+  access
 } = require("fs");
 
 // mkdirSync("./txt/output.txt"); //for creating the new file
@@ -20,7 +21,7 @@ writeFileSync("./txt/output.txt", textOut);
 console.log(readFileSync("./txt/output.txt", "utf-8"));
 
 /**This is non-blocking ,asynchronus way */
-readFile("./txt/startt.txt", "utf-8", (err, data1) => {
+readFile("./txt/start.txt", "utf-8", (err, data1) => {
   if (err) {
     return console.error("Error!");
   }
@@ -42,3 +43,4 @@ readFile("./txt/startt.txt", "utf-8", (err, data1) => {
     });
   });
 });
+

@@ -2,22 +2,8 @@ const http = require("http");
 const url = require("url");
 const fs = require("fs");
 
-//function ...
-const replaceTemplate = (temp, product) => {
-  let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
-  output = output.replace(/{%IMAGE%}/g, product.image);
-  output = output.replace(/{%PRICE%}/g, product.price);
-  output = output.replace(/{%FROM%}/g, product.from);
-  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-  output = output.replace(/{%QUANTITY%}/g, product.quantity);
-  output = output.replace(/{%DESCRIPTION%}/g, product.description);
-  output = output.replace(/{%ID%}/g, product.id);
-
-  if (!product.organic) {
-    output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
-  }
-  return output;
-};
+/*we can also create our own module and use it as mentioned below */
+const replaceTemplate = require("./modules/replaceTemplate.js");
 
 //for reading templates...
 const templateOverview = fs.readFileSync(
@@ -39,8 +25,12 @@ const dataObj = JSON.parse(data);
 
 //.createServer helps to create the server...
 const server = http.createServer((req, res) => {
-  //   console.log(req.url);
-  const pathName = req.url;
+  // console.log(req.url);
+  // console.log(url.parse(req.url, true));
+
+  const { query, pathname: pathName } = url.parse(req.url, true);
+
+  // const pathName = req.url;
 
   //overview Page....
   if (pathName == "/" || pathName == "/overview") {
@@ -56,7 +46,12 @@ const server = http.createServer((req, res) => {
 
     //product Page....
   } else if (pathName == "/product") {
-    res.end("Hello this is the product page!");
+    // console.log(query.id);
+    res.writeHead(200, { "Content-type": "text/html" });
+    const product = dataObj[query.id];
+    const output = replaceTemplate(templateProduct, product);
+    // res.end("Hello this is the product page!");
+    res.end(output);
 
     //Api page...
   } else if (pathName == "/api") {

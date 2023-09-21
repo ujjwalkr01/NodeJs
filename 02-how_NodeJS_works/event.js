@@ -41,10 +41,10 @@ server.on("request", (req, res) => {
   console.log("Request received!");
   res.end("Request received!");
 });
-server.on("request", (req, res) => {
+server.on("request", () => {
   console.log(" Another Request received!");
 });
-server.on("close", (req, res) => {
+server.on("close", () => {
   console.log("Server Request closed!");
 });
 

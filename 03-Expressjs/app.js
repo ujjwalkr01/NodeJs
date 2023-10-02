@@ -20,7 +20,7 @@ const genricFun = (req, res, next) => {
 const loggingIn = (req, res, next) => {
   console.log("hello i am logging middleware!");
   next();
-}; 
+};
 /**we can create our own middleware and then use it but we should always use third parameter as next() which passes the execution to the next code else the other line of code will be in pending state.. */
 app.use(genricFun);
 app.use(loggingIn);
@@ -34,8 +34,4 @@ app.use(genricFun);
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 
-/**---------starting server----------------*/
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;

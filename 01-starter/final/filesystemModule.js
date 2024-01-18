@@ -7,12 +7,14 @@ const {
   writeFileSync,
   readFile,
   writeFile,
-  access
+  access,
 } = require("fs");
 
 // mkdirSync("./txt/output.txt"); //for creating the new file
 
 /**This is Blocking synchronus way */
+//we use utf-8 for encoding the data else will get Bufferdata..
+
 const textIn = readFileSync("./txt/input.txt", "utf-8");
 console.log(textIn);
 
@@ -43,4 +45,3 @@ readFile("./txt/start.txt", "utf-8", (err, data1) => {
     });
   });
 });
-

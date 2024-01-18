@@ -6,6 +6,9 @@ const fs = require("fs");
 const replaceTemplate = require("./modules/replaceTemplate.js");
 
 //for reading templates...
+/**__dirname--> it's a local variable that returns the name of the current module's
+ * directory. It's give back the location of the current js file folder.
+ */
 const templateOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
   "utf-8"
